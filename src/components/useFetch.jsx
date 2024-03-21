@@ -6,20 +6,20 @@ export default function useFetch(url, options = {}) {
   const [pending, setPending] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const fetchData = async () => {
-    setPending(true);
-    try {
-      const response = await axios.get(url, { ...options });
-      setData(response.data);
-      setErrorMsg(null);
-    } catch (error) {
-      setErrorMsg(error.message || "Accured an error!");
-    } finally {
-      setPending(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      setPending(true);
+      try {
+        const response = await axios.get(url, { ...options });
+        setData(response.data);
+        setErrorMsg(null);
+      } catch (error) {
+        setErrorMsg(error.message || "Accured an error!");
+      } finally {
+        setPending(false);
+      }
+    };
+
     fetchData();
   }, [url]);
 
